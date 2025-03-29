@@ -125,14 +125,14 @@ test_expect_success '--continue creates merge commit after empty resolution' '
 	git add main.txt &&
 	test_tick &&
 	git commit --no-edit &&
-	FAKE_LINES="1 2 3 5 6 7 8 9 10 11" &&
-	export FAKE_LINES &&
-	test_must_fail git rebase -ir main &&
+
+	test_must_fail env FAKE_LINES="1 2 3 5 6 7 8 9 10 11" \
+		git rebase -ir main &&
 	echo side1 >main.txt &&
 	git add main.txt &&
 	git rebase --continue &&
 	git log --merges >out &&
-	test_grep "Merge branch '\''rebase_i_merge_side'\''" out
+	test_grep "Merge branch .rebase_i_merge_side." out
 '
 
 test_expect_success '--skip after failed fixup cleans commit message' '
