@@ -1300,6 +1300,8 @@ checkfuncs = [
   'mkdtemp',
   # no compat
   'initgroups',
+  # no compat
+  'getpagesize',
 ]
 
 if host_machine.system() == 'windows'
